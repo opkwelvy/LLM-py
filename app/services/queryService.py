@@ -13,10 +13,11 @@ class Query_Service:
 Now, answer the following question: {input}                                   
                                                   """)
             
-            document_chain = await create_stuff_documents_chain(gpt4o, prompt)
+            document_chain = create_stuff_documents_chain(gpt4o, prompt)
+            context = await retriever.ainvoke(user_input)
             result = await document_chain.ainvoke({
                 "input":user_input,
-                "context": await retriever.ainvoke(user_input)
+                "context": context
             })
             print(result)
             return result

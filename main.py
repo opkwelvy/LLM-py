@@ -1,17 +1,19 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from app.services.pdf_service import PDF_Service
 from app.services.queryService import Query_Service
-app = FastAPI()
-mdFile = PDF_Service.convertFileToMD("./assets/receitas.pdf")
-chuncks = PDF_Service.covertMDToChunks(mdFile)
-embed = PDF_Service.embed(chuncks)
-result = Query_Service.query(embed, "Quais são os ingredientes do bife de marinheiro?")
+from dotenv import load_dotenv
+import asyncio
+load_dotenv()
 
-# @app.post("/upload")
-# async def upload_endpoint(
-#     file: UploadFile = File(...),
-#     query: str = Form(...)
-# ):  return "a"
+async def main():
+    mdFile = PDF_Service.convertFileToMD("./assets/receitas-texto.pdf")
+    chunks =  PDF_Service.covertMDToChunks(mdFile)
+    embed =  PDF_Service.embed(chunks)
+    
+    result = await Query_Service.query(embed, "Quais são os ingredientes do bife de marinheiro?")
+    print(result)
 
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(main())
 
-# print(result.document.export_to_markdown())
