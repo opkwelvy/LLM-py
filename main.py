@@ -6,8 +6,8 @@ import asyncio
 load_dotenv()
 
 async def main():
-    mdFile = PDF_Service.convertFileToMD("./assets/receitas-texto.pdf")
-    chunks =  PDF_Service.covertMDToChunks(mdFile)
+    mdFile = PDF_Service.convertFileToMd("./assets/receitas.pdf")
+    chunks =  PDF_Service.mdFileToChunks(mdFile)
     embed =  PDF_Service.embed(chunks)
     
     result = await Query_Service.query(embed, "Quais são os ingredientes do bife de marinheiro?")

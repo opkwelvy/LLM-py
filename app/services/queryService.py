@@ -5,7 +5,7 @@ from ..models.modelsAi import gpt4o
 class Query_Service:
     async def query(embed: VectorStore, user_input: str) :
         try:
-            retriever = embed.as_retriever()
+            retriever = embed.as_retriever(k=3)
             prompt = PromptTemplate.from_template("""
             You are an LLM with one goal: to help the user answer questions about the following topic:
          {context}
@@ -19,7 +19,6 @@ Now, answer the following question: {input}
                 "input":user_input,
                 "context": context
             })
-            print(result)
             return result
         except Exception as e:
             print(f"Error in query: {e}")
