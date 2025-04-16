@@ -11,6 +11,7 @@ async def main():
     embed =  PDF_Service.embed(chunks)
     
     result = await Query_Service.query(embed, "Quais são os ingredientes do bife de marinheiro?")
+    print("Pergunta: Quais são os ingredientes do bife de marinheiro?")
     print(result)
 
 if __name__ == "__main__":

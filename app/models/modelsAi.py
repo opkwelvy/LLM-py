@@ -4,7 +4,6 @@ from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
 load_dotenv()
 
-print(os.getenv("AZURE_OPENAI_API_INSTANCE_NAME"))
 
 gpt4o = AzureChatOpenAI(
        azure_endpoint=f"https://{os.getenv('AZURE_OPENAI_API_INSTANCE_NAME')}.openai.azure.com",
